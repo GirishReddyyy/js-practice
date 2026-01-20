@@ -1,0 +1,3 @@
+all primitives are immutable, they cant be deleted once created.
+
+all refernce types are mutable
