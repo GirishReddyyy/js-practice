@@ -25,6 +25,7 @@ let student={
         console.log("hello from getData");
     },
     getAverage:function(){
+        //find avg marks of students are return
         let total=0;
         for(let i in this.marks){
             total+=this.marks[i];
