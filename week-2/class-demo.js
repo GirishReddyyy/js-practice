@@ -19,7 +19,10 @@
 //       isLongBook() - Returns true if pages > 300, false otherwise
 
 class Book {
-    title, author,pages,isAvailable;
+    title;
+    author;
+    pages;
+    isAvailable;
 
     constructor(title,author,pages,isAvailable=true){
         this.title=title;
@@ -85,8 +88,19 @@ book2.borrow();
 //       iii. Return 1 book and show updated status
 book1.returnBook();
 //       iv. Count how many books are "long books" (more than 300 pages)
+let c = 0
+if(book1.isLongBook())c++
+if(book2.isLongBook())c++
+if(book3.isLongBook())c++
+if(book4.isLongBook())c++
+if(book5.isLongBook())c++
+console.log("Number of long books: " + c);
 
 //       v. List all available books
-
-
+console.log("Available books : ")
+if(book1.isAvailable)console.log(book1.getInfo())
+if(book2.isAvailable)console.log(book2.getInfo())
+if(book3.isAvailable)console.log(book3.getInfo())
+if(book4.isAvailable)console.log(book4.getInfo())
+if(book5.isAvailable)console.log(book5.getInfo())
 
