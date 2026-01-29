@@ -1,61 +1,42 @@
-//ii.task.js - Task operations
-// TODO: Import validator functions
-// import { ... } from './validator.js';
-import {
-    validateTitle,
-    validatePriority,
-    validateDueDate
-} from "./validator.js";
+import { validateTitle, validatePriority, validateDueDate } from './validator.js';
 
 const tasks = [];
-let taskIdCounter = 1;
+let idCounter = 1;
 
 // 1. Add new task
 export function addTask(title, priority, dueDate) {
-    // Validate using imported functions
-    // If valid, add to tasks array
-    // Return success/error message
-    const titleError = validateTitle(title);
-    const priorityError = validatePriority(priority);
-    const dateError = validateDueDate(dueDate);
+  if (!validateTitle(title)) return "Error: Title must be at least 3 characters.";
+  if (!validatePriority(priority)) return "Error: Priority must be low, medium, or high.";
+  if (!validateDueDate(dueDate)) return "Error: Due date must be in the future.";
 
-    if (titleError || priorityError || dateError) {
-        return {
-            success: false,
-            message: titleError || priorityError || dateError
-        };
-    }
+  const newTask = {
+    id: idCounter++,
+    title,
+    priority,
+    dueDate,
+    isCompleted: false
+  };
 
-    const task = {
-        id: taskIdCounter++,
-        title,
-        priority,
-        dueDate,
-        completed: false
-    };
-
-    tasks.push(task);
-    return { success: true, message: "Task added successfully", task };
+  tasks.push(newTask);
+  return "Task added successfully.";
 }
 
 // 2. Get all tasks
 export function getAllTasks() {
-    // Return all tasks
-    return tasks;
+  return tasks;
 }
 
 // 3. Mark task as complete
 export function completeTask(taskId) {
-    // Find task and mark as complete
-    const task = tasks.find(t => t.id === taskId);
+  taskId = Number(taskId);
 
-    if (!task) {
-        return { success: false, message: "Task not found" };
-    }
+  const task = tasks.find(t => t.id === taskId);
 
-    task.completed = true;
-    return { success: true, message: "Task marked as complete" };
+  if (!task) return "Error: Task not found.";
+  if (task.isCompleted) return "Task already completed!";
+
+  task.isCompleted = true;
+  return "Task marked as complete.";
 }
 
 // Export functions
-export { addTask, getAllTasks, completeTask };
