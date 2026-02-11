@@ -1,0 +1,36 @@
+###create product req
+POST http://localhost:4000/product-api/products
+Content-Type: application/json
+
+{
+    "productName":"tv",
+    "price":100000,
+    "brand":"lg"
+}
+
+###get the products
+GET http://localhost:4000/products-api/products
+
+###create user req
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "name":"Max",
+    "email":"max@gmail.com",
+    "password":"",
+    "cart":[]
+}
+
+
+### req to add product to cart
+PUT  http://127.0.0.1:4000/user-api/user-cart/user-id/69817f5139716aa5648f2e62/product-id/69806a948632bbd73da1786e
+
+
+
+//findOne( {email: req.body.email})
+//findById(objid)
+
+
+###details of user
+GET http://127.0.0.1:4000/user-api/users/69817f5139716aa5648f2e62
