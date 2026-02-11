@@ -14,4 +14,10 @@ prodRouter.post("/products",async(req,res)=>{
     res.status(201).json({message:"product created"})
 })
 
-
+//get the products route
+prodRouter.get('/products',async(req,res)=>{
+    //get the products
+    let productList = await ProductModel.find()
+    //send res
+    res.status(200).json({message:"all products",payload:productList})
+})

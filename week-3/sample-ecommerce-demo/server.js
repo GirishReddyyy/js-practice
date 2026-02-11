@@ -14,7 +14,9 @@ async function connectDB(){
         await connect("mongodb://localhost:27017/ecomdb")
         console.log("connected to DB")
         app.listen(port,()=>console.log("server listening in port 4000..."))
-    }catch(err){}
+    }catch(err){
+        console.log("DB connection failed:", err.message)
+    }
 }
 connectDB()
 

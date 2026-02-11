@@ -60,16 +60,25 @@ userRouter.put("/user-cart/user-id/:uid/product-id/:pid", async (req, res) => {
     }
 
     //check if product exists in the cart
-    //let existingCartItem = user.cart.find(item => item.product.toString() === pid)
+    let existingCartItem = user.cart.find(item => item.product.toString() === pid)
     // console.log("quantity:",qty)
     // console.log("existing cart item:",existingCartItem.quantity)
     let modifiedUser;
-    if (product._id.equals(pid)) { //pid.equals(product._id) pid==product._id
-        modifiedUser = await UserModel.findOneAndUpdate({ "cart.product": pid }, { $inc: { quantity: 1 } }, { new: true }).populate("cart.product", "productName price brand")
+    if (existingCartItem) {
+        // Increment quantity
+        modifiedUser = await UserModel.findOneAndUpdate(
+            { _id: uid, "cart.product": pid },
+            { $inc: { "cart.$.quantity": 1 } },
+            { new: true }
+        ).populate("cart.product", "productName price brand")
     } else {
-        modifiedUser = await UserModel.findByIdAndUpdate(uid, { $push: { cart: { product: pid, quantity: 1 } } }, { new: true }).populate("cart.product", "productName price brand")
+        // Add new product to cart
+        modifiedUser = await UserModel.findByIdAndUpdate(
+            uid,
+            { $push: { cart: { product: pid, quantity: 1 } } },
+            { new: true }
+        ).populate("cart.product", "productName price brand")
     }
-    //perform update
     //res
     res.status(200).json({ message: "Product added to cart", payload: modifiedUser })
 })

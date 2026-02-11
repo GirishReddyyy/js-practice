@@ -8,6 +8,8 @@ Content-Type: application/json
     "brand":"lg"
 }
 
+###get the products
+GET http://localhost:4000/products-api/products
 
 ###create user req
 POST http://localhost:4000/user-api/users
